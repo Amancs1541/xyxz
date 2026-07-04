@@ -20,6 +20,8 @@ evaluate.py
 
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 
 from src.config import (
     FIGURES_DIR,
@@ -188,8 +190,22 @@ def histogram_threshold(
         figsize=(FIGURE_WIDTH, FIGURE_HEIGHT)
     )
 
+    values_array = np.asarray(values).ravel()
+
+    if len(values_array) > 10000:
+
+        rng = np.random.default_rng(42)
+
+        sampled_index = rng.choice(
+            len(values_array),
+            size=10000,
+            replace=False
+        )
+
+        values_array = values_array[sampled_index]
+
     plt.hist(
-        values,
+        values_array,
         bins=80
     )
 
@@ -222,16 +238,18 @@ def bar_chart(
     values,
     title,
     ylabel,
-    filename
+    filename,
+    annotate=False
 ):
 
     plt.figure(
         figsize=(FIGURE_WIDTH, FIGURE_HEIGHT)
     )
 
-    plt.bar(
+    bars = plt.bar(
         labels,
-        values
+        values,
+        color="#4C78A8"
     )
 
     plt.title(title)
@@ -239,6 +257,174 @@ def bar_chart(
     plt.ylabel(ylabel)
 
     plt.grid(axis="y")
+
+    if annotate:
+
+        for bar in bars:
+
+            height = bar.get_height()
+
+            plt.text(
+                bar.get_x() + bar.get_width() / 2,
+                height,
+                f"{height:.3f}",
+                ha="center",
+                va="bottom",
+                fontsize=9
+            )
+
+    save_figure(filename)
+
+# ==========================================================
+# Horizontal Bar Chart
+# ==========================================================
+
+def horizontal_bar_chart(
+    labels,
+    values,
+    title,
+    xlabel,
+    ylabel,
+    filename
+):
+
+    plt.figure(figsize=(12, 8))
+
+    order = np.argsort(values)[::-1]
+
+    ordered_labels = np.array(labels)[order]
+    ordered_values = np.array(values)[order]
+
+    y_pos = np.arange(len(ordered_labels))
+
+    plt.barh(
+        y_pos,
+        ordered_values,
+        color="#4C78A8"
+    )
+
+    plt.yticks(
+        y_pos,
+        ordered_labels
+    )
+
+    ax = plt.gca()
+    ax.invert_yaxis()
+
+    plt.title(title)
+
+    plt.xlabel(xlabel)
+
+    plt.ylabel(ylabel)
+
+    plt.grid(axis="x")
+
+    save_figure(filename)
+
+# ==========================================================
+# PCA Projection
+# ==========================================================
+
+def pca_projection(
+    features,
+    labels,
+    filename
+):
+
+    plt.figure(figsize=(10, 8))
+
+    rng = np.random.default_rng(42)
+    max_points = 20000
+
+    labels_array = labels.astype(int).to_numpy()
+    normal_indices = np.flatnonzero(labels_array == 0)
+    anomaly_indices = np.flatnonzero(labels_array == 1)
+
+    if len(normal_indices) > 0 and len(anomaly_indices) > 0:
+
+        target_per_class = min(
+            max_points // 2,
+            len(normal_indices),
+            len(anomaly_indices)
+        )
+
+        sampled_normal = rng.choice(
+            normal_indices,
+            size=target_per_class,
+            replace=False
+        )
+
+        sampled_anomaly = rng.choice(
+            anomaly_indices,
+            size=target_per_class,
+            replace=False
+        )
+
+        sampled_index = np.concatenate(
+            [sampled_normal, sampled_anomaly]
+        )
+
+    else:
+
+        sampled_index = rng.choice(
+            len(features),
+            size=min(max_points, len(features)),
+            replace=False
+        )
+
+    features_sample = features.iloc[sampled_index]
+    labels_sample = labels.iloc[sampled_index]
+
+    numeric_features = features_sample.select_dtypes(
+        include=[np.number]
+    ).fillna(0)
+
+    if numeric_features.shape[1] < 2:
+
+        return
+
+    scaler = StandardScaler()
+
+    scaled_features = scaler.fit_transform(numeric_features)
+
+    pca = PCA(n_components=2, random_state=42)
+
+    components = pca.fit_transform(scaled_features)
+
+    normal_mask = labels_sample.astype(int) == 0
+    anomaly_mask = labels_sample.astype(int) == 1
+
+    plt.scatter(
+        components[normal_mask, 0],
+        components[normal_mask, 1],
+        s=8,
+        alpha=0.5,
+        color="blue",
+        label="Normal"
+    )
+
+    plt.scatter(
+        components[anomaly_mask, 0],
+        components[anomaly_mask, 1],
+        s=10,
+        alpha=0.6,
+        color="red",
+        label="Anomaly"
+    )
+
+    plt.title("PCA Projection of Normal and Anomalous User Activities")
+
+    plt.xlabel(
+        f"Principal Component 1 ({pca.explained_variance_ratio_[0] * 100:.1f}%)"
+    )
+
+    plt.ylabel(
+        f"Principal Component 2 ({pca.explained_variance_ratio_[1] * 100:.1f}%)"
+    )
+
+    plt.legend()
+
+    plt.grid(True)
 
     save_figure(filename)
 
