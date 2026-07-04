@@ -25,13 +25,15 @@ from src.logger import (
 )
 
 from src.utils import (
+    load_csv,
     save_csv,
     save_report
 )
 
 from src.visualization import (
     bar_chart,
-    multi_line_plot
+    horizontal_bar_chart,
+    pca_projection
 )
 
 from src.config import (
@@ -44,9 +46,11 @@ from src.config import (
 
     ANOMALY_DISTRIBUTION,
 
-    TIME_SERIES,
+    FEATURE_MATRIX_FILE,
 
-    MODEL_COMPARISON
+    MODEL_COMPARISON,
+
+    TABLES_DIR
 
 )
 
@@ -135,6 +139,155 @@ def create_summary(results):
 
 
 # ==========================================================
+# Feature-Based Anomaly Visualizations
+# ==========================================================
+
+def create_anomaly_feature_figures(results):
+
+    banner("Creating Anomaly Insight Figures")
+
+    feature_matrix_path = TABLES_DIR / FEATURE_MATRIX_FILE
+
+    if not feature_matrix_path.exists():
+
+        info("Feature matrix not found; skipping anomaly insight figures")
+
+        return
+
+    feature_matrix = load_csv(feature_matrix_path)
+
+    if feature_matrix.empty:
+
+        info("Feature matrix is empty; skipping anomaly insight figures")
+
+        return
+
+    anomaly_labels = (
+
+        results["if"]["prediction"].astype(int)
+
+        | results["lof"]["prediction"].astype(int)
+
+        | results["ae"]["prediction"].astype(int)
+
+    )
+
+    if len(anomaly_labels) != len(feature_matrix):
+
+        sample_size = min(len(feature_matrix), len(anomaly_labels))
+
+        feature_matrix = feature_matrix.iloc[:sample_size].copy()
+
+        anomaly_labels = anomaly_labels.iloc[:sample_size].copy()
+
+    feature_matrix = feature_matrix.copy()
+
+    feature_matrix["anomaly"] = anomaly_labels.astype(int)
+
+    if "user" in feature_matrix.columns:
+
+        user_counts = (
+
+            feature_matrix.groupby("user")["anomaly"].sum()
+
+            .sort_values(ascending=False)
+            .head(20)
+
+        )
+
+        horizontal_bar_chart(
+
+            labels=user_counts.index.tolist(),
+
+            values=user_counts.values.tolist(),
+
+            title="Top 20 Anomalous Users",
+
+            xlabel="Anomaly Count",
+
+            ylabel="User",
+
+            filename="top_anomalous_users.png"
+
+        )
+
+    if "pc" in feature_matrix.columns:
+
+        device_counts = (
+
+            feature_matrix.groupby("pc")["anomaly"].sum()
+
+            .sort_values(ascending=False)
+            .head(20)
+
+        )
+
+        horizontal_bar_chart(
+
+            labels=device_counts.index.tolist(),
+
+            values=device_counts.values.tolist(),
+
+            title="Top 20 Anomalous Devices",
+
+            xlabel="Anomaly Count",
+
+            ylabel="Device",
+
+            filename="top_anomalous_devices.png"
+
+        )
+
+    if "activity" in feature_matrix.columns:
+
+        activity_counts = (
+
+            feature_matrix.groupby("activity")["anomaly"].sum()
+
+            .sort_values(ascending=False)
+
+        )
+
+        bar_chart(
+
+            labels=activity_counts.index.tolist(),
+
+            values=activity_counts.values.tolist(),
+
+            title="Activity-wise Anomaly Distribution",
+
+            ylabel="Anomaly Count",
+
+            filename="activity_distribution.png"
+
+        )
+
+    numeric_columns = [
+
+        column for column in feature_matrix.columns
+
+        if column not in {"user", "pc", "activity", "anomaly"}
+
+        and pd.api.types.is_numeric_dtype(feature_matrix[column])
+
+    ]
+
+    if len(numeric_columns) >= 2:
+
+        pca_projection(
+
+            features=feature_matrix[numeric_columns],
+
+            labels=feature_matrix["anomaly"],
+
+            filename="pca_projection.png"
+
+        )
+
+    info("Anomaly insight figures created")
+
+
+# ==========================================================
 # Distribution Plot
 # ==========================================================
 
@@ -180,49 +333,6 @@ def anomaly_distribution(results):
 
 
 # ==========================================================
-# Time Series Comparison
-# ==========================================================
-
-def anomaly_timeline(results):
-
-    banner("Timeline Comparison")
-
-    multi_line_plot(
-
-        series=[
-
-            results["if"]["prediction"],
-
-            results["lof"]["prediction"],
-
-            results["ae"]["prediction"]
-
-        ],
-
-        labels=[
-
-            "Isolation Forest",
-
-            "LOF",
-
-            "Autoencoder"
-
-        ],
-
-        title="Detected Anomalies",
-
-        xlabel="Sample",
-
-        ylabel="Prediction",
-
-        filename=TIME_SERIES
-
-    )
-
-    info("Timeline figure created")
-
-
-# ==========================================================
 # Training Time Plot
 # ==========================================================
 
@@ -260,7 +370,8 @@ def training_time_plot(results):
 
         ylabel="Seconds",
 
-        filename=MODEL_COMPARISON
+        filename=MODEL_COMPARISON,
+        annotate=True
 
     )
 
@@ -488,7 +599,7 @@ def evaluate(results):
 
     )
 
-    anomaly_timeline(
+    create_anomaly_feature_figures(
 
         results
 
