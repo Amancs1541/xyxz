@@ -217,7 +217,10 @@ ae_anomaly_scores.png
 
 anomaly_distribution.png
 
-time_series_anomalies.png
+top_anomalous_users.png
+top_anomalous_devices.png
+activity_distribution.png
+pca_projection.png
 
 model_comparison.png
 ```

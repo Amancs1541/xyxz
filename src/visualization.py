@@ -333,23 +333,47 @@ def pca_projection(
 
     plt.figure(figsize=(10, 8))
 
-    sample_size = min(50000, len(features))
+    rng = np.random.default_rng(42)
+    max_points = 20000
 
-    if sample_size < len(features):
+    labels_array = labels.astype(int).to_numpy()
+    normal_indices = np.flatnonzero(labels_array == 0)
+    anomaly_indices = np.flatnonzero(labels_array == 1)
 
-        sampled_index = np.random.default_rng(42).choice(
-            len(features),
-            size=sample_size,
+    if len(normal_indices) > 0 and len(anomaly_indices) > 0:
+
+        target_per_class = min(
+            max_points // 2,
+            len(normal_indices),
+            len(anomaly_indices)
+        )
+
+        sampled_normal = rng.choice(
+            normal_indices,
+            size=target_per_class,
             replace=False
         )
 
-        features_sample = features.iloc[sampled_index]
-        labels_sample = labels.iloc[sampled_index]
+        sampled_anomaly = rng.choice(
+            anomaly_indices,
+            size=target_per_class,
+            replace=False
+        )
+
+        sampled_index = np.concatenate(
+            [sampled_normal, sampled_anomaly]
+        )
 
     else:
 
-        features_sample = features
-        labels_sample = labels
+        sampled_index = rng.choice(
+            len(features),
+            size=min(max_points, len(features)),
+            replace=False
+        )
+
+    features_sample = features.iloc[sampled_index]
+    labels_sample = labels.iloc[sampled_index]
 
     numeric_features = features_sample.select_dtypes(
         include=[np.number]
@@ -373,9 +397,9 @@ def pca_projection(
     plt.scatter(
         components[normal_mask, 0],
         components[normal_mask, 1],
-        s=10,
+        s=8,
         alpha=0.5,
-        color="tab:blue",
+        color="blue",
         label="Normal"
     )
 
@@ -383,16 +407,20 @@ def pca_projection(
         components[anomaly_mask, 0],
         components[anomaly_mask, 1],
         s=10,
-        alpha=0.7,
-        color="tab:red",
+        alpha=0.6,
+        color="red",
         label="Anomaly"
     )
 
-    plt.title("PCA Projection of Normal vs Anomalies")
+    plt.title("PCA Projection of Normal and Anomalous User Activities")
 
-    plt.xlabel("Principal Component 1")
+    plt.xlabel(
+        f"Principal Component 1 ({pca.explained_variance_ratio_[0] * 100:.1f}%)"
+    )
 
-    plt.ylabel("Principal Component 2")
+    plt.ylabel(
+        f"Principal Component 2 ({pca.explained_variance_ratio_[1] * 100:.1f}%)"
+    )
 
     plt.legend()
 
