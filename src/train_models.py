@@ -16,28 +16,30 @@ No figures
 import time
 import pandas as pd
 
-from logger import (
+from src.logger import (
     banner,
     info
 )
 
-from utils import (
+from src.utils import (
     save_csv
 )
 
-from config import (
-    ANOMALY_SCORE_FILE
+from src.config import (
+    ANOMALY_SCORE_FILE,
+    RANDOM_STATE,
+    TRAINING_SAMPLE_SIZE
 )
 
-from models.isolation_forest_model import (
+from src.models.isolation_forest_model import (
     run_isolation_forest
 )
 
-from models.lof_model import (
+from src.models.lof_model import (
     run_lof
 )
 
-from models.autoencoder_model import (
+from src.models.autoencoder_model import (
     run_autoencoder
 )
 
@@ -46,11 +48,29 @@ from models.autoencoder_model import (
 # Isolation Forest
 # ==========================================================
 
-def train_isolation_forest(X):
+def prepare_training_subset(X):
+
+    if len(X) > TRAINING_SAMPLE_SIZE:
+
+        subset = X.sample(
+            n=TRAINING_SAMPLE_SIZE,
+            random_state=RANDOM_STATE
+        )
+
+        info(
+            f"Using {len(subset)} samples for training from {len(X)} rows"
+        )
+
+        return subset
+
+    return X
+
+
+def train_isolation_forest(X, X_predict=None):
 
     start = time.perf_counter()
 
-    result = run_isolation_forest(X)
+    result = run_isolation_forest(X, X_predict=X_predict)
 
     result["training_time"] = (
 
@@ -67,11 +87,11 @@ def train_isolation_forest(X):
 # Local Outlier Factor
 # ==========================================================
 
-def train_lof(X):
+def train_lof(X, X_predict=None):
 
     start = time.perf_counter()
 
-    result = run_lof(X)
+    result = run_lof(X, X_predict=X_predict)
 
     result["training_time"] = (
 
@@ -88,11 +108,11 @@ def train_lof(X):
 # Autoencoder
 # ==========================================================
 
-def train_autoencoder(X):
+def train_autoencoder(X, X_predict=None):
 
     start = time.perf_counter()
 
-    result = run_autoencoder(X)
+    result = run_autoencoder(X, X_predict=X_predict)
 
     result["training_time"] = (
 
@@ -156,21 +176,26 @@ def train_all_models(X):
 
     banner("TRAINING ALL MODELS")
 
+    training_subset = prepare_training_subset(X)
+
     if_result = train_isolation_forest(
 
-        X
+        training_subset,
+        X_predict=X
 
     )
 
     lof_result = train_lof(
 
-        X
+        training_subset,
+        X_predict=X
 
     )
 
     ae_result = train_autoencoder(
 
-        X
+        training_subset,
+        X_predict=X
 
     )
 

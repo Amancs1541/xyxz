@@ -1,0 +1,77 @@
+
+==============================================================
+IAM ANOMALY DETECTION MODEL COMPARISON
+==============================================================
+
+Generated
+---------
+2026-07-04 13:46:20
+
+==============================================================
+Isolation Forest
+==============================================================
+
+Detected Anomalies :
+40012
+
+Training Time :
+9.754 seconds
+
+
+==============================================================
+Local Outlier Factor
+==============================================================
+
+Detected Anomalies :
+36940
+
+Training Time :
+143.240 seconds
+
+
+==============================================================
+Autoencoder
+==============================================================
+
+Detected Anomalies :
+88713
+
+Training Time :
+77.377 seconds
+
+
+==============================================================
+Evaluation Method
+==============================================================
+
+This project performs UNSUPERVISED anomaly detection.
+
+Ground truth labels are not available.
+
+Therefore the following supervised metrics
+are intentionally NOT calculated:
+
+• Accuracy
+
+• Precision
+
+• Recall
+
+• F1-score
+
+• ROC-AUC
+
+• Confusion Matrix
+
+
+Models are compared using
+
+• Number of detected anomalies
+
+• Training time
+
+• Decision scores
+
+• Reconstruction error
+
+==============================================================

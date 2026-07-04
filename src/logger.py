@@ -15,7 +15,7 @@ from logger import logger
 import logging
 import sys
 
-from config import (
+from src.config import (
     REPORTS_DIR,
     EXECUTION_LOG,
     LINE

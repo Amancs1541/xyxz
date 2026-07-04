@@ -1,0 +1,61 @@
+
+==============================================================
+PIPELINE EXECUTION REPORT
+==============================================================
+
+Execution Time
+--------------
+2026-07-04 13:46:20
+
+
+Dataset Statistics
+------------------
+
+Samples Processed :
+1774249
+
+
+Isolation Forest
+
+Detected :
+40012
+
+
+Local Outlier Factor
+
+Detected :
+36940
+
+
+Autoencoder
+
+Detected :
+88713
+
+
+Pipeline Status
+---------------
+
+SUCCESS
+
+
+Generated Files
+---------------
+
+feature_matrix.csv
+
+if_predictions.csv
+
+lof_predictions.csv
+
+ae_predictions.csv
+
+anomaly_scores.csv
+
+model_summary.csv
+
+model_comparison.txt
+
+execution_report.txt
+
+==============================================================

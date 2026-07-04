@@ -14,28 +14,27 @@ Responsibilities
 ==============================================================
 """
 
-import joblib
 import pandas as pd
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 
-from config import (
+from src.config import (
     SCALER_MODEL,
     DATASET_PREVIEW,
     FEATURE_CORRELATION
 )
 
-from logger import (
+from src.logger import (
     banner,
     info
 )
 
-from utils import (
+from src.utils import (
     save_model
 )
 
-from visualization import (
+from src.visualization import (
     dataset_preview,
     correlation_heatmap
 )

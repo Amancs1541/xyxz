@@ -16,11 +16,12 @@ Responsibilities
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from utils import (
+from src.logger import (
     logger,
-    banner,
-    save_figure
+    banner
 )
+
+from src.visualization import save_figure
 
 
 # =============================================================================
@@ -194,7 +195,6 @@ def create_preview(df):
     table.set_fontsize(8)
 
     save_figure(
-        plt,
         "processed_dataset.png"
     )
 

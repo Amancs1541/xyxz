@@ -24,7 +24,7 @@ from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.callbacks import EarlyStopping
 
-from config import (
+from src.config import (
 
     AE_EPOCHS,
 
@@ -54,7 +54,7 @@ from config import (
 
 )
 
-from logger import (
+from src.logger import (
 
     banner,
 
@@ -68,7 +68,7 @@ from logger import (
 
 )
 
-from visualization import (
+from src.visualization import (
 
     training_loss,
 
@@ -77,13 +77,6 @@ from visualization import (
     line_plot
 
 )
-
-from config import (
-
-    LOSS_CURVE
-
-)
-
 
 # ==========================================================
 # Build Autoencoder
@@ -424,10 +417,8 @@ def predict(
 
 
 
-from utils import (
-
+from src.utils import (
     save_csv
-
 )
 
 def save_predictions(
@@ -566,12 +557,15 @@ def print_statistics(prediction):
 # Complete Pipeline
 # ==========================================================
 
-def run_autoencoder(X):
+def run_autoencoder(X, X_predict=None):
     """
     Complete Autoencoder Pipeline
     """
 
     banner("Autoencoder")
+
+    if X_predict is None:
+        X_predict = X
 
     input_dimension = X.shape[1]
 
@@ -593,13 +587,13 @@ def run_autoencoder(X):
 
         model,
 
-        X
+        X_predict
 
     )
 
     errors = reconstruction_error(
 
-        X,
+        X_predict,
 
         reconstructed
 

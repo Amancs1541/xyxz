@@ -84,11 +84,13 @@ for directory in [
 
 RANDOM_STATE = 42
 
+TRAINING_SAMPLE_SIZE = 10000
+
 # ==========================================================
 # ISOLATION FOREST
 # ==========================================================
 
-IF_N_ESTIMATORS = 200
+IF_N_ESTIMATORS = 50
 
 IF_CONTAMINATION = 0.02
 
@@ -102,7 +104,7 @@ IF_N_JOBS = -1
 # LOCAL OUTLIER FACTOR
 # ==========================================================
 
-LOF_NEIGHBORS = 20
+LOF_NEIGHBORS = 10
 
 LOF_CONTAMINATION = 0.02
 
@@ -114,9 +116,9 @@ LOF_NOVELTY = True
 # AUTOENCODER
 # ==========================================================
 
-AE_EPOCHS = 50
+AE_EPOCHS = 3
 
-AE_BATCH_SIZE = 256
+AE_BATCH_SIZE = 64
 
 AE_VALIDATION_SPLIT = 0.20
 

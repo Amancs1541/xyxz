@@ -21,14 +21,14 @@ evaluate.py
 import matplotlib.pyplot as plt
 import numpy as np
 
-from config import (
+from src.config import (
     FIGURES_DIR,
     FIGURE_DPI,
     FIGURE_WIDTH,
     FIGURE_HEIGHT
 )
 
-from logger import (
+from src.logger import (
     logger,
     file_saved
 )

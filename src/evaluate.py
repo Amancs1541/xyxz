@@ -15,24 +15,26 @@ using unsupervised metrics.
 ==============================================================
 """
 
+from datetime import datetime
+
 import pandas as pd
 
-from logger import (
+from src.logger import (
     banner,
     info
 )
 
-from utils import (
+from src.utils import (
     save_csv,
     save_report
 )
 
-from visualization import (
+from src.visualization import (
     bar_chart,
     multi_line_plot
 )
 
-from config import (
+from src.config import (
 
     MODEL_SUMMARY_FILE,
 
@@ -263,8 +265,6 @@ def training_time_plot(results):
     )
 
     info("Training comparison created")
-
-    from datetime import datetime
 
 
 # ==========================================================

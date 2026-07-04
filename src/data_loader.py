@@ -19,20 +19,20 @@ Returns:
 
 import pandas as pd
 
-from config import (
+from src.config import (
     DEVICE_DATASET,
     LOGON_DATASET,
     FILE_DATASET,
     COMMON_COLUMNS
 )
 
-from logger import (
+from src.logger import (
     banner,
     dataset_loaded,
     info
 )
 
-from utils import (
+from src.utils import (
     load_csv
 )
 

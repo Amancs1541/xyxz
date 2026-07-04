@@ -22,7 +22,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from config import (
+from src.config import (
     RANDOM_STATE,
     OUTPUT_DIR,
     FIGURES_DIR,
@@ -31,7 +31,7 @@ from config import (
     REPORTS_DIR
 )
 
-from logger import logger, file_saved
+from src.logger import logger, file_saved
 
 # ==========================================================
 # Create Output Directories

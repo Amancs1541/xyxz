@@ -16,7 +16,7 @@ outputs/tables/
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
-from config import (
+from src.config import (
     RANDOM_STATE,
     IF_N_ESTIMATORS,
     IF_CONTAMINATION,
@@ -27,7 +27,7 @@ from config import (
     IF_PREDICTIONS_FILE
 )
 
-from logger import (
+from src.logger import (
     banner,
     info,
     model_started,
@@ -35,7 +35,7 @@ from logger import (
     statistics
 )
 
-from utils import (
+from src.utils import (
     save_csv,
     save_model
 )
@@ -163,17 +163,20 @@ def print_statistics(prediction):
 # Complete Pipeline
 # ==========================================================
 
-def run_isolation_forest(X):
+def run_isolation_forest(X, X_predict=None):
 
     banner("Isolation Forest")
+
+    if X_predict is None:
+        X_predict = X
 
     model = build_model()
 
     model = train(model, X)
 
-    prediction = predict(model, X)
+    prediction = predict(model, X_predict)
 
-    scores = anomaly_scores(model, X)
+    scores = anomaly_scores(model, X_predict)
 
     save_predictions(
 

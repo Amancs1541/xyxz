@@ -19,7 +19,7 @@ import pandas as pd
 
 from sklearn.neighbors import LocalOutlierFactor
 
-from config import (
+from src.config import (
     LOF_NEIGHBORS,
     LOF_CONTAMINATION,
     LOF_METRIC,
@@ -28,7 +28,7 @@ from config import (
     LOF_PREDICTIONS_FILE
 )
 
-from logger import (
+from src.logger import (
     banner,
     info,
     model_started,
@@ -36,7 +36,7 @@ from logger import (
     statistics
 )
 
-from utils import (
+from src.utils import (
     save_csv,
     save_model
 )
@@ -206,12 +206,15 @@ def print_statistics(prediction):
 # Complete Pipeline
 # ==========================================================
 
-def run_lof(X):
+def run_lof(X, X_predict=None):
     """
     Complete LOF Pipeline.
     """
 
     banner("Local Outlier Factor")
+
+    if X_predict is None:
+        X_predict = X
 
     model = build_model()
 
@@ -227,7 +230,7 @@ def run_lof(X):
 
         model,
 
-        X
+        X_predict
 
     )
 
@@ -235,7 +238,7 @@ def run_lof(X):
 
         model,
 
-        X
+        X_predict
 
     )
 
