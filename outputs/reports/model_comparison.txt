@@ -5,7 +5,7 @@ IAM ANOMALY DETECTION MODEL COMPARISON
 
 Generated
 ---------
-2026-07-04 14:55:34
+2026-07-04 15:33:18
 
 ==============================================================
 Isolation Forest
@@ -15,7 +15,7 @@ Detected Anomalies :
 40012
 
 Training Time :
-11.562 seconds
+11.793 seconds
 
 
 ==============================================================
@@ -26,7 +26,7 @@ Detected Anomalies :
 36940
 
 Training Time :
-144.072 seconds
+154.958 seconds
 
 
 ==============================================================
@@ -37,7 +37,7 @@ Detected Anomalies :
 88713
 
 Training Time :
-83.669 seconds
+92.592 seconds
 
 
 ==============================================================
