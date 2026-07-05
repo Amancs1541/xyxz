@@ -1,149 +1,150 @@
-2026-07-04 14:50:27 | INFO     | ================================================================================
-2026-07-04 14:50:27 | INFO     | IAM Anomaly Detection Project Started
-2026-07-04 14:50:27 | INFO     | ================================================================================
-2026-07-04 14:50:35 | INFO     | Random Seed = 42
-2026-07-04 14:50:35 | INFO     | Project Initialized
-2026-07-04 14:50:35 | INFO     | IAM ANOMALY DETECTION
-2026-07-04 14:50:35 | INFO     | 
-2026-07-04 14:50:35 | INFO     | ================================================================================
-2026-07-04 14:50:35 | INFO     | Pipeline Started
-2026-07-04 14:50:35 | INFO     | ================================================================================
-2026-07-04 14:50:35 | INFO     | Loading CERT datasets...
-2026-07-04 14:50:35 | INFO     | Loading CERT Dataset
-2026-07-04 14:50:35 | INFO     | Loading device.csv
-2026-07-04 14:50:37 | INFO     | Validating device.csv
-2026-07-04 14:50:37 | INFO     | device.csv Loaded (387957 rows × 6 columns)
-2026-07-04 14:50:37 | INFO     | device.csv validation completed
-2026-07-04 14:50:37 | INFO     | Loading logon.csv
-2026-07-04 14:50:41 | INFO     | Validating logon.csv
-2026-07-04 14:50:41 | INFO     | logon.csv Loaded (882571 rows × 5 columns)
-2026-07-04 14:50:41 | INFO     | logon.csv validation completed
-2026-07-04 14:50:41 | INFO     | Loading file.csv
-2026-07-04 14:50:48 | INFO     | Validating file.csv
-2026-07-04 14:50:48 | INFO     | file.csv Loaded (503721 rows × 9 columns)
-2026-07-04 14:50:48 | INFO     | file.csv validation completed
-2026-07-04 14:50:48 | INFO     | Merging Datasets
-2026-07-04 14:50:49 | INFO     | Merged dataset shape : (1774249, 10)
-2026-07-04 14:50:49 | INFO     | Cleaning dataset...
-2026-07-04 14:50:49 | INFO     | DATA CLEANING
-2026-07-04 14:50:49 | INFO     | Removing Duplicates
-2026-07-04 14:50:52 | INFO     | Duplicates Removed : 0
-2026-07-04 14:50:52 | INFO     | Handling Missing Values
-2026-07-04 14:50:54 | INFO     | Missing values handled
-2026-07-04 14:50:54 | INFO     | Converting Date Column
-2026-07-04 14:50:54 | INFO     | Datetime converted
-2026-07-04 14:50:54 | INFO     | Standardizing Categories
-2026-07-04 14:51:01 | INFO     | Categories standardized
-2026-07-04 14:51:02 | INFO     | Boolean columns converted
-2026-07-04 14:51:02 | INFO     | Creating Dataset Preview
-2026-07-04 14:51:03 | INFO     | Saved : processed_dataset.png
-2026-07-04 14:51:03 | INFO     | Dataset preview saved
-2026-07-04 14:51:03 | INFO     | Cleaning Finished
-2026-07-04 14:51:04 | INFO     | Generating behavioural features...
-2026-07-04 14:51:04 | INFO     | FEATURE ENGINEERING
-2026-07-04 14:51:04 | INFO     | Datetime Features
-2026-07-04 14:51:04 | INFO     | Weekend Feature
-2026-07-04 14:51:04 | INFO     | After Hours
-2026-07-04 14:51:04 | INFO     | User Activity
-2026-07-04 14:51:04 | INFO     | Device Usage
-2026-07-04 14:51:04 | INFO     | File Usage
-2026-07-04 14:51:05 | INFO     | Unique Devices
-2026-07-04 14:51:05 | INFO     | USB Activity
-2026-07-04 14:51:05 | INFO     | Session Density
-2026-07-04 14:51:06 | INFO     | Selecting Features
-2026-07-04 14:51:13 | INFO     | Saved : feature_matrix.csv
-2026-07-04 14:51:13 | INFO     | 16 Features Created
-2026-07-04 14:51:13 | INFO     | Feature engineering completed
-2026-07-04 14:51:13 | INFO     | Preprocessing features...
-2026-07-04 14:51:13 | INFO     | PREPROCESSING
-2026-07-04 14:51:13 | INFO     | Encoding Categorical Features
-2026-07-04 14:51:13 | INFO     | user encoded
-2026-07-04 14:51:13 | INFO     | pc encoded
-2026-07-04 14:51:14 | INFO     | activity encoded
-2026-07-04 14:51:14 | INFO     | Generating Preprocessing Figures
-2026-07-04 14:51:15 | INFO     | Saved : dataset_preview.png
-2026-07-04 14:51:18 | INFO     | Saved : feature_correlation.png
-2026-07-04 14:51:18 | INFO     | Preprocessing visualizations created
-2026-07-04 14:51:18 | INFO     | Scaling Features
-2026-07-04 14:51:18 | INFO     | Saving Scaler
-2026-07-04 14:51:18 | INFO     | Saved : scaler.pkl
-2026-07-04 14:51:18 | INFO     | Scaler saved
-2026-07-04 14:51:18 | INFO     | Preprocessing completed
-2026-07-04 14:51:18 | INFO     | Training machine learning models...
-2026-07-04 14:51:18 | INFO     | TRAINING ALL MODELS
-2026-07-04 14:51:18 | INFO     | Using 10000 samples for training from 1774249 rows
-2026-07-04 14:51:18 | INFO     | Isolation Forest
-2026-07-04 14:51:18 | INFO     | 
-2026-07-04 14:51:18 | INFO     | ================================================================================
-2026-07-04 14:51:18 | INFO     | Training Isolation Forest
-2026-07-04 14:51:18 | INFO     | ================================================================================
-2026-07-04 14:51:18 | INFO     | Isolation Forest Training Completed
-2026-07-04 14:51:30 | INFO     | Saved : if_predictions.csv
-2026-07-04 14:51:30 | INFO     | Saved : isolation_forest.pkl
-2026-07-04 14:51:30 | INFO     | Isolation Forest | Samples=1774249 | Anomalies=40012
-2026-07-04 14:51:30 | INFO     | Isolation Forest completed
-2026-07-04 14:51:30 | INFO     | Local Outlier Factor
-2026-07-04 14:51:30 | INFO     | 
-2026-07-04 14:51:30 | INFO     | ================================================================================
-2026-07-04 14:51:30 | INFO     | Training Local Outlier Factor
-2026-07-04 14:51:30 | INFO     | ================================================================================
-2026-07-04 14:51:30 | INFO     | Local Outlier Factor Training Completed
-2026-07-04 14:53:54 | INFO     | Saved : lof_predictions.csv
-2026-07-04 14:53:54 | INFO     | Saved : lof.pkl
-2026-07-04 14:53:54 | INFO     | LOF model saved
-2026-07-04 14:53:54 | INFO     | Local Outlier Factor | Samples=1774249 | Anomalies=36940
-2026-07-04 14:53:54 | INFO     | Local Outlier Factor completed
-2026-07-04 14:53:54 | INFO     | Autoencoder
-2026-07-04 14:53:54 | INFO     | Autoencoder created
-2026-07-04 14:53:54 | INFO     | 
-2026-07-04 14:53:54 | INFO     | ================================================================================
-2026-07-04 14:53:54 | INFO     | Training Autoencoder
-2026-07-04 14:53:54 | INFO     | ================================================================================
-2026-07-04 14:53:58 | INFO     | Saved : loss_curve.png
-2026-07-04 14:53:58 | INFO     | Autoencoder Training Completed
-2026-07-04 14:53:58 | INFO     | Reconstructing Samples
-2026-07-04 14:55:09 | INFO     | Dataset reconstructed
-2026-07-04 14:55:09 | INFO     | Calculating Reconstruction Error
-2026-07-04 14:55:10 | INFO     | Reconstruction error calculated
-2026-07-04 14:55:10 | INFO     | Selecting Threshold
-2026-07-04 14:55:10 | INFO     | Threshold = 0.589776
-2026-07-04 14:55:14 | INFO     | Saved : ae_predictions.csv
-2026-07-04 14:55:14 | INFO     | Saved : reconstruction_error.png
-2026-07-04 14:55:14 | INFO     | Reconstruction error figure created
-2026-07-04 14:55:18 | INFO     | Saved : ae_anomaly_scores.png
-2026-07-04 14:55:18 | INFO     | Autoencoder score plot created
-2026-07-04 14:55:18 | INFO     | Autoencoder model saved
-2026-07-04 14:55:18 | INFO     | Autoencoder | Samples=1774249 | Anomalies=88713
-2026-07-04 14:55:18 | INFO     | Autoencoder completed
-2026-07-04 14:55:18 | INFO     | Saving Anomaly Scores
-2026-07-04 14:55:26 | INFO     | Saved : anomaly_scores.csv
-2026-07-04 14:55:26 | INFO     | Model Training Finished
-2026-07-04 14:55:26 | INFO     | Evaluating models...
-2026-07-04 14:55:26 | INFO     | MODEL EVALUATION
-2026-07-04 14:55:26 | INFO     | Creating Summary
-2026-07-04 14:55:26 | INFO     | Saved : model_summary.csv
-2026-07-04 14:55:26 | INFO     | Anomaly Distribution
-2026-07-04 14:55:27 | INFO     | Saved : anomaly_distribution.png
-2026-07-04 14:55:27 | INFO     | Distribution figure created
-2026-07-04 14:55:27 | INFO     | Creating Anomaly Insight Figures
-2026-07-04 14:55:31 | INFO     | Saved : top_anomalous_users.png
-2026-07-04 14:55:32 | INFO     | Saved : top_anomalous_devices.png
-2026-07-04 14:55:32 | INFO     | Saved : activity_distribution.png
-2026-07-04 14:55:34 | INFO     | Saved : pca_projection.png
-2026-07-04 14:55:34 | INFO     | Anomaly insight figures created
-2026-07-04 14:55:34 | INFO     | Training Time
-2026-07-04 14:55:34 | INFO     | Saved : model_comparison.png
-2026-07-04 14:55:34 | INFO     | Training comparison created
-2026-07-04 14:55:34 | INFO     | Creating Model Report
-2026-07-04 14:55:34 | INFO     | Saved : model_comparison.txt
-2026-07-04 14:55:34 | INFO     | Model comparison report created
-2026-07-04 14:55:34 | INFO     | Creating Execution Report
-2026-07-04 14:55:34 | INFO     | Saved : execution_report.txt
-2026-07-04 14:55:34 | INFO     | Execution report created
-2026-07-04 14:55:34 | INFO     | Evaluation Summary
-2026-07-04 14:55:34 | INFO     | Evaluation completed
-2026-07-04 14:55:34 | INFO     | 
-2026-07-04 14:55:34 | INFO     | ================================================================================
-2026-07-04 14:55:34 | INFO     | Pipeline Finished Successfully
-2026-07-04 14:55:34 | INFO     | ================================================================================
-2026-07-04 14:55:34 | INFO     | PIPELINE COMPLETED
+2026-07-04 15:27:38 | INFO     | ================================================================================
+2026-07-04 15:27:38 | INFO     | IAM Anomaly Detection Project Started
+2026-07-04 15:27:38 | INFO     | ================================================================================
+2026-07-04 15:27:49 | INFO     | Random Seed = 42
+2026-07-04 15:27:49 | INFO     | Project Initialized
+2026-07-04 15:27:49 | INFO     | IAM ANOMALY DETECTION
+2026-07-04 15:27:49 | INFO     | 
+2026-07-04 15:27:49 | INFO     | ================================================================================
+2026-07-04 15:27:49 | INFO     | Pipeline Started
+2026-07-04 15:27:49 | INFO     | ================================================================================
+2026-07-04 15:27:49 | INFO     | Loading CERT datasets...
+2026-07-04 15:27:49 | INFO     | Loading CERT Dataset
+2026-07-04 15:27:49 | INFO     | Loading device.csv
+2026-07-04 15:27:51 | INFO     | Validating device.csv
+2026-07-04 15:27:51 | INFO     | device.csv Loaded (387957 rows × 6 columns)
+2026-07-04 15:27:51 | INFO     | device.csv validation completed
+2026-07-04 15:27:51 | INFO     | Loading logon.csv
+2026-07-04 15:27:56 | INFO     | Validating logon.csv
+2026-07-04 15:27:56 | INFO     | logon.csv Loaded (882571 rows × 5 columns)
+2026-07-04 15:27:56 | INFO     | logon.csv validation completed
+2026-07-04 15:27:56 | INFO     | Loading file.csv
+2026-07-04 15:28:04 | INFO     | Validating file.csv
+2026-07-04 15:28:04 | INFO     | file.csv Loaded (503721 rows × 9 columns)
+2026-07-04 15:28:04 | INFO     | file.csv validation completed
+2026-07-04 15:28:04 | INFO     | Merging Datasets
+2026-07-04 15:28:05 | INFO     | Merged dataset shape : (1774249, 10)
+2026-07-04 15:28:05 | INFO     | Cleaning dataset...
+2026-07-04 15:28:05 | INFO     | DATA CLEANING
+2026-07-04 15:28:05 | INFO     | Removing Duplicates
+2026-07-04 15:28:08 | INFO     | Duplicates Removed : 0
+2026-07-04 15:28:08 | INFO     | Handling Missing Values
+2026-07-04 15:28:11 | INFO     | Missing values handled
+2026-07-04 15:28:11 | INFO     | Converting Date Column
+2026-07-04 15:28:11 | INFO     | Datetime converted
+2026-07-04 15:28:11 | INFO     | Standardizing Categories
+2026-07-04 15:28:19 | INFO     | Categories standardized
+2026-07-04 15:28:20 | INFO     | Boolean columns converted
+2026-07-04 15:28:20 | INFO     | Creating Dataset Preview
+2026-07-04 15:28:22 | INFO     | Saved : processed_dataset.png
+2026-07-04 15:28:22 | INFO     | Dataset preview saved
+2026-07-04 15:28:22 | INFO     | Cleaning Finished
+2026-07-04 15:28:22 | INFO     | Generating behavioural features...
+2026-07-04 15:28:22 | INFO     | FEATURE ENGINEERING
+2026-07-04 15:28:22 | INFO     | Datetime Features
+2026-07-04 15:28:22 | INFO     | Weekend Feature
+2026-07-04 15:28:22 | INFO     | After Hours
+2026-07-04 15:28:22 | INFO     | User Activity
+2026-07-04 15:28:23 | INFO     | Device Usage
+2026-07-04 15:28:23 | INFO     | File Usage
+2026-07-04 15:28:24 | INFO     | Unique Devices
+2026-07-04 15:28:24 | INFO     | USB Activity
+2026-07-04 15:28:24 | INFO     | Session Density
+2026-07-04 15:28:24 | INFO     | Selecting Features
+2026-07-04 15:28:32 | INFO     | Saved : feature_matrix.csv
+2026-07-04 15:28:32 | INFO     | 16 Features Created
+2026-07-04 15:28:32 | INFO     | Feature engineering completed
+2026-07-04 15:28:32 | INFO     | Preprocessing features...
+2026-07-04 15:28:32 | INFO     | PREPROCESSING
+2026-07-04 15:28:32 | INFO     | Encoding Categorical Features
+2026-07-04 15:28:33 | INFO     | user encoded
+2026-07-04 15:28:33 | INFO     | pc encoded
+2026-07-04 15:28:33 | INFO     | activity encoded
+2026-07-04 15:28:33 | INFO     | Generating Preprocessing Figures
+2026-07-04 15:28:34 | INFO     | Saved : dataset_preview.png
+2026-07-04 15:28:37 | INFO     | Saved : feature_correlation.png
+2026-07-04 15:28:37 | INFO     | Preprocessing visualizations created
+2026-07-04 15:28:37 | INFO     | Scaling Features
+2026-07-04 15:28:38 | INFO     | Saving Scaler
+2026-07-04 15:28:38 | INFO     | Saved : scaler.pkl
+2026-07-04 15:28:38 | INFO     | Scaler saved
+2026-07-04 15:28:38 | INFO     | Preprocessing completed
+2026-07-04 15:28:38 | INFO     | Training machine learning models...
+2026-07-04 15:28:38 | INFO     | TRAINING ALL MODELS
+2026-07-04 15:28:38 | INFO     | Using 10000 samples for training from 1774249 rows
+2026-07-04 15:28:38 | INFO     | Isolation Forest
+2026-07-04 15:28:38 | INFO     | 
+2026-07-04 15:28:38 | INFO     | ================================================================================
+2026-07-04 15:28:38 | INFO     | Training Isolation Forest
+2026-07-04 15:28:38 | INFO     | ================================================================================
+2026-07-04 15:28:39 | INFO     | Isolation Forest Training Completed
+2026-07-04 15:28:50 | INFO     | Saved : if_predictions.csv
+2026-07-04 15:28:50 | INFO     | Saved : isolation_forest.pkl
+2026-07-04 15:28:50 | INFO     | Isolation Forest | Samples=1774249 | Anomalies=40012
+2026-07-04 15:28:50 | INFO     | Isolation Forest completed
+2026-07-04 15:28:50 | INFO     | Local Outlier Factor
+2026-07-04 15:28:50 | INFO     | 
+2026-07-04 15:28:50 | INFO     | ================================================================================
+2026-07-04 15:28:50 | INFO     | Training Local Outlier Factor
+2026-07-04 15:28:50 | INFO     | ================================================================================
+2026-07-04 15:28:51 | INFO     | Local Outlier Factor Training Completed
+2026-07-04 15:31:25 | INFO     | Saved : lof_predictions.csv
+2026-07-04 15:31:25 | INFO     | Saved : lof.pkl
+2026-07-04 15:31:25 | INFO     | LOF model saved
+2026-07-04 15:31:25 | INFO     | Local Outlier Factor | Samples=1774249 | Anomalies=36940
+2026-07-04 15:31:25 | INFO     | Local Outlier Factor completed
+2026-07-04 15:31:25 | INFO     | Autoencoder
+2026-07-04 15:31:25 | INFO     | Autoencoder created
+2026-07-04 15:31:25 | INFO     | 
+2026-07-04 15:31:25 | INFO     | ================================================================================
+2026-07-04 15:31:25 | INFO     | Training Autoencoder
+2026-07-04 15:31:25 | INFO     | ================================================================================
+2026-07-04 15:31:30 | INFO     | Saved : loss_curve.png
+2026-07-04 15:31:30 | INFO     | Autoencoder Training Completed
+2026-07-04 15:31:30 | INFO     | Reconstructing Samples
+2026-07-04 15:32:48 | INFO     | Dataset reconstructed
+2026-07-04 15:32:48 | INFO     | Calculating Reconstruction Error
+2026-07-04 15:32:49 | INFO     | Reconstruction error calculated
+2026-07-04 15:32:49 | INFO     | Selecting Threshold
+2026-07-04 15:32:49 | INFO     | Threshold = 0.589776
+2026-07-04 15:32:53 | INFO     | Saved : ae_predictions.csv
+2026-07-04 15:32:53 | INFO     | Saved : reconstruction_error.png
+2026-07-04 15:32:53 | INFO     | Reconstruction error figure created
+2026-07-04 15:32:58 | INFO     | Saved : ae_anomaly_scores.png
+2026-07-04 15:32:58 | INFO     | Autoencoder score plot created
+2026-07-04 15:32:58 | INFO     | Autoencoder model saved
+2026-07-04 15:32:58 | INFO     | Autoencoder | Samples=1774249 | Anomalies=88713
+2026-07-04 15:32:58 | INFO     | Autoencoder completed
+2026-07-04 15:32:58 | INFO     | Saving Anomaly Scores
+2026-07-04 15:33:08 | INFO     | Saved : anomaly_scores.csv
+2026-07-04 15:33:08 | INFO     | Model Training Finished
+2026-07-04 15:33:08 | INFO     | Evaluating models...
+2026-07-04 15:33:08 | INFO     | MODEL EVALUATION
+2026-07-04 15:33:08 | INFO     | Creating Summary
+2026-07-04 15:33:08 | INFO     | Saved : model_summary.csv
+2026-07-04 15:33:08 | INFO     | Anomaly Distribution
+2026-07-04 15:33:08 | INFO     | Saved : anomaly_distribution.png
+2026-07-04 15:33:08 | INFO     | Distribution figure created
+2026-07-04 15:33:08 | INFO     | Creating Anomaly Insight Figures
+2026-07-04 15:33:12 | INFO     | Saved : top_anomalous_users.png
+2026-07-04 15:33:13 | INFO     | Saved : top_anomalous_devices.png
+2026-07-04 15:33:14 | INFO     | Saved : activity_distribution.png
+2026-07-04 15:33:15 | INFO     | Saved : pca_projection.png
+2026-07-04 15:33:15 | INFO     | Anomaly insight figures created
+2026-07-04 15:33:15 | INFO     | Training Time
+2026-07-04 15:33:15 | INFO     | Saved : model_comparison.png
+2026-07-04 15:33:15 | INFO     | Training comparison created
+2026-07-04 15:33:18 | INFO     | Saved : confusion_matrices.png
+2026-07-04 15:33:18 | INFO     | Creating Model Report
+2026-07-04 15:33:18 | INFO     | Saved : model_comparison.txt
+2026-07-04 15:33:18 | INFO     | Model comparison report created
+2026-07-04 15:33:18 | INFO     | Creating Execution Report
+2026-07-04 15:33:18 | INFO     | Saved : execution_report.txt
+2026-07-04 15:33:18 | INFO     | Execution report created
+2026-07-04 15:33:18 | INFO     | Evaluation Summary
+2026-07-04 15:33:18 | INFO     | Evaluation completed
+2026-07-04 15:33:18 | INFO     | 
+2026-07-04 15:33:18 | INFO     | ================================================================================
+2026-07-04 15:33:18 | INFO     | Pipeline Finished Successfully
+2026-07-04 15:33:18 | INFO     | ================================================================================
+2026-07-04 15:33:18 | INFO     | PIPELINE COMPLETED

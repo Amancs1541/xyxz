@@ -32,6 +32,7 @@ from src.utils import (
 
 from src.visualization import (
     bar_chart,
+    confusion_matrix_comparison,
     horizontal_bar_chart,
     pca_projection
 )
@@ -608,6 +609,14 @@ def evaluate(results):
     training_time_plot(
 
         results
+
+    )
+
+    confusion_matrix_comparison(
+
+        results,
+
+        "confusion_matrices.png"
 
     )
 

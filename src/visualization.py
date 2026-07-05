@@ -21,6 +21,7 @@ evaluate.py
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.decomposition import PCA
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 
 from src.config import (
@@ -425,6 +426,53 @@ def pca_projection(
     plt.legend()
 
     plt.grid(True)
+
+    save_figure(filename)
+
+# ==========================================================
+# Confusion Matrix Comparison
+# ==========================================================
+
+def confusion_matrix_comparison(results, filename):
+
+    plt.figure(figsize=(18, 5))
+
+    predictions = {
+        "Isolation Forest": results["if"]["prediction"].astype(int).to_numpy(),
+        "LOF": results["lof"]["prediction"].astype(int).to_numpy(),
+        "Autoencoder": results["ae"]["prediction"].astype(int).to_numpy()
+    }
+
+    consensus = (
+        predictions["Isolation Forest"]
+        + predictions["LOF"]
+        + predictions["Autoencoder"]
+    ) >= 2
+
+    consensus = consensus.astype(int)
+
+    axes = plt.subplots(1, 3, figsize=(18, 5))[1]
+
+    for ax, (model_name, predicted) in zip(axes, predictions.items()):
+
+        cm = confusion_matrix(
+            consensus,
+            predicted.astype(int),
+            labels=[0, 1]
+        )
+
+        disp = ConfusionMatrixDisplay(
+            confusion_matrix=cm,
+            display_labels=["Normal", "Anomaly"]
+        )
+
+        disp.plot(ax=ax, cmap="Blues", colorbar=False)
+
+        ax.set_title(model_name)
+        ax.set_xlabel("Predicted Label")
+        ax.set_ylabel("True Label")
+
+    plt.tight_layout()
 
     save_figure(filename)
 
