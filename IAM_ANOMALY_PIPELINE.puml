@@ -1,0 +1,56 @@
+@startuml
+title IAM Anomaly Detection Pipeline
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName Arial
+skinparam ArrowColor #4C78A8
+skinparam rectangle {
+  BorderColor #4C78A8
+  BackgroundColor #EAF2F8
+}
+
+rectangle "CERT Activity Datasets\n• device.csv\n• logon.csv\n• file.csv" as data
+
+rectangle "Data Loading\n• Load each CSV\n• Standardise column names\n• Validate required fields\n• Merge by date" as load
+
+rectangle "Data Cleaning\n• Remove duplicates\n• Handle missing values\n• Convert dates and booleans\n• Standardise categories" as clean
+
+rectangle "Feature Engineering\n• Time and weekend features\n• After-hours activity\n• User/device/file counts\n• USB activity and session density" as features
+
+rectangle "Preprocessing\n• Label-encode user, PC, activity\n• Create preview/correlation charts\n• Standardise all features" as prep
+
+rectangle "Training Sample\nUp to 10,000 rows" as sample
+
+rectangle "Isolation Forest\nTree-based isolation\nProduces labels and anomaly scores" as iforest #D5F5E3
+rectangle "Local Outlier Factor\nLocal density comparison\nProduces labels and anomaly scores" as lof #D5F5E3
+rectangle "Autoencoder\nNeural reconstruction model\nUses reconstruction-error threshold" as ae #D5F5E3
+
+rectangle "Evaluation and Comparison\n• Anomaly totals\n• Training time\n• Consensus-based comparison\n• User/device/activity insights" as evaluation #FCF3CF
+
+rectangle "Saved Outputs\nTables: feature matrix, predictions, scores, summary\nModels: scaler and trained models\nReports: execution and model comparison\nFigures: charts and visualisations" as outputs #FDEDEC
+
+data --> load
+load --> clean
+clean --> features
+features --> prep
+prep --> sample
+
+sample --> iforest
+sample --> lof
+sample --> ae
+
+iforest --> evaluation
+lof --> evaluation
+ae --> evaluation
+evaluation --> outputs
+
+note right of evaluation
+  Unsupervised setting:
+  no ground-truth labels are required.
+  Models are compared using anomaly
+  counts, scores, runtime, and agreement.
+end note
+
+@enduml
